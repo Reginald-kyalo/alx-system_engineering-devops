@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#prints numbers 1-100 Fizz if multiple of 3 Buzz if multiple of 5 FizzBuzz if multiple of both
+
+count=1
+while [ $count -le 100 ]
+do
+	if [ $(( count % 3 )) == 0 ]
+	then
+		echo "Fizz"
+	elif [ $(( count % 5 )) == 0 ]
+	then
+		echo "Buzz"
+	elif [ $(( count % 3 )) == 0 ] && [ $(( count % 5 )) == 0 ]
+	then
+		echo "FizzBuzz"
+	else
+		echo "$count"
+	fi
+	(( count++ ))
+done

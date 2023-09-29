@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#displays Best School 10 times but displays hi in 9th loop
+
+var="Best School"
+count=1
+while [ $count -le 10 ]
+do
+	echo "$var"
+	if [ $count == 9 ]
+	then
+		echo "Hi"
+	fi
+	(( count++ ))
+done

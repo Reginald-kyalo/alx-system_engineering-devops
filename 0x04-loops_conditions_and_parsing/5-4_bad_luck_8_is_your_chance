@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#displays Best School 10 times but displays bad luck in 4th loop and good luck in 8th loop
+
+var="Best School"
+count=1
+while [ $count -le 10 ]
+do
+	if [ $count == 4 ]
+	then
+		echo "bad luck"
+	elif [ $count == 8 ]
+	then
+		echo "good luck"
+	else
+		echo "$var"
+	fi
+	(( count++ ))
+done
