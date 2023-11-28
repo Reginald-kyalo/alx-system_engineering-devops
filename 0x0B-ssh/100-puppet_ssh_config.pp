@@ -1,17 +1,15 @@
-#configues ssh client to use private key in school file
-#and to refuse to authenticate using a password
-file { '/etc/ssh/ssh_config':
+# make changes to config file using Puppet
+
+include stdlib
+
+file_line { 'Refuse to authenticate using a password':
   ensure => present,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0644',
-  source => '/etc/ssh/ssh_config',
+  path   => '/etc/ssh/ssh_config',
+  line   => 'PasswordAuthentication no',
 }
 
-augeas { 'ssh_config':
-  context => '/etc/ssh/ssh_config',
-  changes => [
-    'set PasswordAuthentication no',
-    'set IdentityFile ~/.ssh/school',
-  ],
+file_line { 'Use private key':
+  ensure => present,
+  path   => '/etc/ssh/ssh_config',
+  line   => 'IdentityFile ~/.ssh/school'
 }
