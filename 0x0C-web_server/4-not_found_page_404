@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 #Create custom 404 error page
-if ! nginx -v; then
+
 sudo apt-get update -y
 sudo apt-get install -y nginx
-fi
+
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
 
 touch /etc/nginx/html/404.html
 echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
@@ -19,7 +22,7 @@ printf %s "server {
     }
 
     error_page 404 /404.html;
-    location /404.html {
+    location /404 {
       root /etc/nginx/html;
       internal;
     }
