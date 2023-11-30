@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-#Eable redirection to 301 Moved Permanently
+#Enable redirection to 301 Moved Permanently
 
-sudo apt-get update -y
-sudo apt-get install -y nginx
+apt-get update
+apt-get install -y nginx
 
 
 echo "Hello World!" | sudo tee /var/www/html/index.html
@@ -10,5 +10,5 @@ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.ba
 replacement="servername ;\n\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}"
 sed -i "s/servername ;/$replacement/" /etc/nginx/sites-available/default
 
-sudo ufw allow 'NGINX HTTP'
-sudo service nginx restart
+ufw allow 'NGINX HTTP'
+service nginx restart
