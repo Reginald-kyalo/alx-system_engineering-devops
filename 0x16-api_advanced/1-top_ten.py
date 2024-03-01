@@ -6,24 +6,17 @@ import requests
 
 
 def top_ten(subreddit):
-    """ Queries Reddit API and prints first 10 hot posts
-    Args:
-        subreddit (string): Name of subreddit to query
-    Returns:
-        Nothing
-    """
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    params = {
-        "limit": 10
-    }
-    r = requests.get(url, headers={'User-Agent': 'Python/requests'},
-                     params=params)
-    try:
-        response = r.json()
-        posts = response.get("data", {}).get("children", None)
-        if posts is None:
-            print(None)
-        else:
-            [print(p.get("data").get("title")) for p in posts]
-    except Exception:
+    '''returns number of subscribers or 0 if subreddit is invalid'''
+    if subreddit is None or not isinstance(subreddit, str):
         print(None)
+        return
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    res = requests.get(url, headers={'User-Agent': 'DreMukare'}).json()
+    if 'error' in res.keys():
+        print(None)
+        return
+    all_posts = res.get('data').get('children')
+    i = 0
+    while i < 10:
+        print(all_posts[i].get('data').get('title'))
+        i += 1
