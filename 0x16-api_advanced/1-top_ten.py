@@ -1,34 +1,18 @@
 #!/usr/bin/python3
-"""
-Function that queries the Reddit API and prints the titles of the first 10
-hot posts listed for a given subreddit.
-"""
-
-
-import requests
+"""Module for task 1"""
 
 
 def top_ten(subreddit):
-    """ Prints the titles of the first 10 hot posts listed for a given
-        subreddit. If not a valid subreddit, prints None.
-    """
+    """Queries the Reddit API and returns the top 10 hot posts
+    of the subreddit"""
+    import requests
 
-    # set custom user-agent
-    user_agent = "1011-BH"
-    R_API = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-
-    # custom user agent avoids request limit
-    header = {"User-Agent": user_agent}
-
-    req = requests.get(R_API, headers=header, allow_redirects=False)
-
-    if req.status_code != 200:
+    sub_info = requests.get("https://www.reddit.com/r/{}/hot.json?limit=10"
+                            .format(subreddit),
+                            headers={"User-Agent": "My-User-Agent"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 300:
         print('None')
     else:
-        # load response unit from the request json
-        data = req.json()['data']
-
-        # extract list of pages
-        posts = data['children']
-        for post in posts:
-            print(post['data']['title'])
+        [print(child.get("data").get("title"))
+         for child in sub_info.json().get("data").get("children")]
