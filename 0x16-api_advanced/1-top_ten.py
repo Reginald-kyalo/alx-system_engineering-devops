@@ -6,6 +6,7 @@ Python function that queries the Reddit API and prints the titles of
 """
 
 from requests import get
+import json
 
 
 def top_ten(subreddit):
